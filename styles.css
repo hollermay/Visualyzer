@@ -10,14 +10,15 @@ h1 {
     position: absolute;
     left: 500px;
     top: 200px;
-    background-color: hsl(0, 88%, 51%); /* red */
-    border: none;
+    background-color: hsl(291, 100%, 24%); /* red */
+    border-radius: 25px;
     color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+
 }
 #yes-button {
     position: absolute;
@@ -39,7 +40,7 @@ h1 {
     left: 650px;
     align-items: center;
     top: 300px;
-    background-color: #4CAF50; /* Green */
+    background-color: #b40c0c; /* Green */
     border: none;
     color: white;
     padding: 15px 32px;
