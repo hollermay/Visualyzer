@@ -24,6 +24,7 @@ h1 {
     left: 450px;
     top: 300px;
     background-color: #4CAF50; /* Green */
+    align-items: center;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -36,6 +37,7 @@ h1 {
 #no-button {
     position: absolute;
     left: 650px;
+    align-items: center;
     top: 300px;
     background-color: #4CAF50; /* Green */
     border: none;
