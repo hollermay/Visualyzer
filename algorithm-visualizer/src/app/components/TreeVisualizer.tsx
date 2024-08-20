@@ -17,14 +17,15 @@ interface TreeVisualizerProps {
   nodes: TreeNode[];
   edges: TreeEdge[];
   traversalPath: number[];
-  algorithm: 'inorder' | 'postorder';
 }
 
-const TreeVisualizer: React.FC<TreeVisualizerProps> = ({ nodes, edges, traversalPath, algorithm }) => {
+const TreeVisualizer: React.FC<TreeVisualizerProps> = ({ nodes, edges, traversalPath }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const networkRef = useRef<Network | null>(null);
   const nodesDataSet = useRef<DataSet<TreeNode> | null>(null);
   const [currentStep, setCurrentStep] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [animationSpeed, setAnimationSpeed] = useState(1000); // Default speed: 1 second per step
 
   useEffect(() => {
     if (containerRef.current) {
@@ -81,29 +82,63 @@ const TreeVisualizer: React.FC<TreeVisualizerProps> = ({ nodes, edges, traversal
   }, [nodes, edges]);
 
   useEffect(() => {
-    if (currentStep < traversalPath.length) {
+    if (isPlaying && currentStep < traversalPath.length) {
       const timeoutId = setTimeout(() => {
-        const nodeId = traversalPath[currentStep];
-        highlightNode(nodeId);
-        setCurrentStep(prev => prev + 1);
-      }, 2000); // 1-second interval between steps
+        highlightNode(traversalPath[currentStep]);
+        setCurrentStep((prev) => prev + 1);
+      }, animationSpeed);
 
-      return () => clearTimeout(timeoutId); // Clear timeout if component unmounts or currentStep changes
+      return () => clearTimeout(timeoutId);
     }
-  }, [currentStep, traversalPath]);
+  }, [isPlaying, currentStep, traversalPath, animationSpeed]);
 
   const highlightNode = (nodeId: number) => {
     if (networkRef.current && nodesDataSet.current) {
-      // Update the node color directly in the DataSet
       nodesDataSet.current.update({ id: nodeId, color: { background: 'red' } });
-
-      // Optionally focus on the node
-      networkRef.current.selectNodes([nodeId], true); // 'true' keeps previous selections
+      networkRef.current.selectNodes([nodeId], true);
       networkRef.current.focus(nodeId, { scale: 1.2, animation: true });
     }
   };
 
-  return <div ref={containerRef} style={{ height: '500px' }} />;
+  const handlePlayPause = () => {
+    setIsPlaying((prev) => !prev);
+  };
+
+  const handleStepForward = () => {
+    if (currentStep < traversalPath.length) {
+      highlightNode(traversalPath[currentStep]);
+      setCurrentStep((prev) => prev + 1);
+    }
+  };
+
+  const handleSpeedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAnimationSpeed(Number(event.target.value));
+  };
+
+  return (
+    <div>
+      <div ref={containerRef} style={{ height: '500px', marginBottom: '20px' }} />
+      <div>
+        <button onClick={handlePlayPause}>
+          {isPlaying ? 'Pause' : 'Play'}
+        </button>
+        <button onClick={handleStepForward} disabled={isPlaying}>
+          Step Forward
+        </button>
+        <label>
+          Speed:
+          <input
+            type="range"
+            min="100"
+            max="2000"
+            value={animationSpeed}
+            onChange={handleSpeedChange}
+            step="100"
+          />
+        </label>
+      </div>
+    </div>
+  );
 };
 
 export default TreeVisualizer;
