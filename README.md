@@ -14,8 +14,8 @@
 ## Tech Stack
 
 - **Frontend**: Next.js, TypeScript
-- **Styling**: [Include any styling libraries or custom CSS you've used]
-- **Visualization**: [Include any libraries used for graph/tree visualization, if any]
+- **Styling**: css
+- **Visualization**: 
 
 ## Installation
 
