@@ -14,8 +14,6 @@
 ## Tech Stack
 
 - **Frontend**: Next.js, TypeScript
-- **Styling**: css
-- **Visualization**: 
 
 ## Installation
 
@@ -50,15 +48,3 @@ To run the project locally, follow these steps:
 ## Contributing
 
 Contributions are welcome! Please fork this repository and create a pull request with your changes. Make sure to follow the existing coding style and add relevant tests if necessary.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-## Contact
-
-For any inquiries or feedback, feel free to reach out to:
-
-- **Name**: Udayan Sharma
-- **Email**: [Your Email]
-- **GitHub**: [Your GitHub Profile Link]
